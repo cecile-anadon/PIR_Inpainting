@@ -1,6 +1,17 @@
 #include "frontiere.h"
 
-int const N=9;
+frontiere::frontiere(){
+    front = new pixel[1000];
+    taille=0;
+}
+
+int frontiere::gettaille(){
+    return(taille);
+}
+
+pixel frontiere::get(int i){
+    return(front[i]);
+}
 
 bool frontiere::empty(){
     return(taille==0);
@@ -17,7 +28,7 @@ void frontiere::del(int k){
     taille--;
 }
 
-void frontiere::voisins(pixel p, pixel voisin[]){
+int frontiere::voisins(pixel p, pixel voisin[]){
     int j=0;
     for (int i=0;i<taille;i++){
         if ((pow(front[i].getx()-p.getx(),2)+pow(front[i].gety()-p.gety(),2))==1){
@@ -25,6 +36,7 @@ void frontiere::voisins(pixel p, pixel voisin[]){
             j++;
         }
     }
+    return(j);
 }
 
 void frontiere::del_patch(pixel p){
@@ -34,5 +46,11 @@ void frontiere::del_patch(pixel p){
             del(k);
         else
             k++;
+    }
+}
+
+void frontiere::affiche(Color c){
+    for (int i=0;i<taille;i++){
+        fillRect(front[i].getx(),front[i].gety(),1,1,c);
     }
 }
